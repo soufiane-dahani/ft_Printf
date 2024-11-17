@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 12:01:27 by sodahani          #+#    #+#             */
-/*   Updated: 2024/11/17 13:22:01 by sodahani         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:52:11 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_putnbr(int n, int *len)
 	ft_putchar(n % 10 + '0', len);
 }
 
-void	ft_puthex(unsigned int n, int uppercase, int *len)
+void	ft_puthex(unsigned long n, int uppercase, int *len)
 {
 	char	*hex_digits;
 
@@ -63,4 +63,18 @@ void	ft_puthex(unsigned int n, int uppercase, int *len)
 		ft_puthex(n / 16, uppercase, len);
 	}
 	ft_putchar(hex_digits[n % 16], len);
+}
+
+void	ft_putptr(void *ptr, int *len)
+{
+	unsigned long	address;
+
+	if (!ptr)
+	{
+		ft_putstr("(nil)", len);
+		return ;
+	}
+	address = (unsigned long)ptr;
+	ft_putstr("0x", len);
+	ft_puthex(address, 0, len);
 }

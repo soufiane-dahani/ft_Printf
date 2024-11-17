@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 12:01:32 by sodahani          #+#    #+#             */
-/*   Updated: 2024/11/17 13:16:32 by sodahani         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:50:18 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 void	ft_putnbr(int n, int *len);
 void	ft_putstr(const char *str, int *len);
 void	ft_putchar(char c, int *len);
-void	ft_puthex(unsigned int n, int uppercase, int *len);
+void	ft_puthex(unsigned long n, int uppercase, int *len);
 int		ft_printf(const char *format, ...);
-
+void	ft_putptr(void *ptr, int *len);
+void	ft_putnbr_unsigned(unsigned int n, int *len);
 #endif
