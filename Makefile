@@ -15,8 +15,8 @@ ${NAME}: ${OBJS}
 	${LIBC} ${NAME} ${OBJS}
 all: ${NAME}
 
-bonus: ${OBJS} ${OBJSB}
-	${LIBC} ${NAME} ${OBJSB}
+#bonus: ${OBJS} ${OBJSB}
+	#${LIBC} ${NAME} ${OBJSB}
 clean:
 	${RM} ${OBJS} ${OBJSB}
 

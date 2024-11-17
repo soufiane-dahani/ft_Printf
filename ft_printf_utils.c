@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 12:01:27 by sodahani          #+#    #+#             */
-/*   Updated: 2024/11/17 15:52:11 by sodahani         ###   ########.fr       */
+/*   Updated: 2024/11/17 18:56:25 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_putptr(void *ptr, int *len)
 
 	if (!ptr)
 	{
-		ft_putstr("(nil)", len);
+		ft_putstr("0x0", len);
 		return ;
 	}
 	address = (unsigned long)ptr;
