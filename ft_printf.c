@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 12:00:12 by sodahani          #+#    #+#             */
-/*   Updated: 2024/11/17 15:53:55 by sodahani         ###   ########.fr       */
+/*   Updated: 2024/11/17 16:09:18 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,30 @@ void	ft_putnbr_unsigned(unsigned int n, int *len)
 	ft_putchar((n % 10) + '0', len);
 }
 
+static void	handle_format(const char specifier, va_list args, int *len)
+{
+	if (specifier == 'd' || specifier == 'i')
+		ft_putnbr(va_arg(args, int), len);
+	else if (specifier == 's')
+		ft_putstr(va_arg(args, char *), len);
+	else if (specifier == 'c')
+		ft_putchar((char)va_arg(args, int), len);
+	else if (specifier == 'p')
+		ft_putptr(va_arg(args, void *), len);
+	else if (specifier == 'x')
+		ft_puthex(va_arg(args, unsigned int), 0, len);
+	else if (specifier == 'X')
+		ft_puthex(va_arg(args, unsigned int), 1, len);
+	else if (specifier == 'u')
+		ft_putnbr_unsigned(va_arg(args, unsigned int), len);
+	else if (specifier == '%')
+		ft_putchar('%', len);
+}
+
 int	ft_printf(const char *format, ...)
 {
-	int				len;
-	va_list			args;
-	int				n;
-	char			*str;
-	char			c;
-	void			*ptr;
-	unsigned int	num;
+	int		len;
+	va_list	args;
 
 	len = 0;
 	va_start(args, format);
@@ -36,45 +51,7 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			if (*format == 'd' || *format == 'i')
-			{
-				n = va_arg(args, int);
-				ft_putnbr(n, &len);
-			}
-			else if (*format == 's')
-			{
-				str = va_arg(args, char *);
-				ft_putstr(str, &len);
-			}
-			else if (*format == 'c')
-			{
-				c = (char)va_arg(args, int);
-				ft_putchar(c, &len);
-			}
-			else if (*format == 'p')
-			{
-				ptr = va_arg(args, void *);
-				ft_putptr(ptr, &len);
-			}
-			else if (*format == 'x')
-			{
-				num = va_arg(args, unsigned int);
-				ft_puthex(num, 0, &len);
-			}
-			else if (*format == 'X')
-			{
-				num = va_arg(args, unsigned int);
-				ft_puthex(num, 1, &len);
-			}
-			else if (*format == 'u')
-			{
-				num = va_arg(args, unsigned int);
-				ft_putnbr_unsigned(num, &len);
-			}
-			else if (*format == '%')
-			{
-				ft_putchar('%', &len);
-			}
+			handle_format(*format, args, &len);
 		}
 		else
 			ft_putchar(*format, &len);
@@ -82,14 +59,4 @@ int	ft_printf(const char *format, ...)
 	}
 	va_end(args);
 	return (len);
-}
-int	main(int argc, char const *argv[])
-{
-	//unsigned int num = 4294967295;
-	int len;
-	len = ft_printf("%%");
-	ft_printf("\n%d\n", len);
-	len = printf("%%");
-	printf("\n%d\n", len);
-	return (0);
 }
