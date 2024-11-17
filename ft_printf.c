@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 12:00:12 by sodahani          #+#    #+#             */
-/*   Updated: 2024/11/17 16:18:47 by sodahani         ###   ########.fr       */
+/*   Updated: 2024/11/17 18:24:33 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,17 @@ void	ft_putnbr_unsigned(unsigned int n, int *len)
 
 static void	handle_format(const char specifier, va_list args, int *len)
 {
+	char	c;
+
 	if (specifier == 'd' || specifier == 'i')
 		ft_putnbr(va_arg(args, int), len);
 	else if (specifier == 's')
 		ft_putstr(va_arg(args, char *), len);
 	else if (specifier == 'c')
-		ft_putchar((char)va_arg(args, int), len);
+	{
+		c = (char)va_arg(args, int);
+		ft_putchar(c, len);
+	}
 	else if (specifier == 'p')
 		ft_putptr(va_arg(args, void *), len);
 	else if (specifier == 'x')
