@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 12:00:12 by sodahani          #+#    #+#             */
-/*   Updated: 2024/11/18 16:17:07 by sodahani         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:40:52 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_printf(const char *format, ...)
 	int		len;
 	va_list	args;
 
-	if ((write(1, 0, 0) == -1) || format == NULL || *(format + 1) == '\0')
+	if ((write(1, 0, 0) == -1) || format == NULL)
 		return (-1);
 	len = 0;
 	va_start(args, format);
@@ -60,6 +60,8 @@ int	ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
+			if (*(format + 1) == '\0')
+				return (-1);
 			format++;
 			if (handle_format(*format, args, &len) == -1)
 				return (-1);
