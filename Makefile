@@ -1,7 +1,6 @@
 SRCS = ft_printf.c ft_printf_utils.c 
 
 OBJS = ${SRCS:.c=.o}
-OBJSB = ${SRCSB:.c=.o}
 NAME = libftprintf.a
 LIBC = ar rcs
 CC = cc
@@ -15,14 +14,12 @@ ${NAME}: ${OBJS}
 	${LIBC} ${NAME} ${OBJS}
 all: ${NAME}
 
-#bonus: ${OBJS} ${OBJSB}
-	#${LIBC} ${NAME} ${OBJSB}
 clean:
-	${RM} ${OBJS} ${OBJSB}
+	${RM} ${OBJS}
 
 fclean: clean
 	${RM} ${NAME} 
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re

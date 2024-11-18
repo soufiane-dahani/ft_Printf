@@ -6,20 +6,20 @@
 /*   By: sodahani <sodahani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 12:00:12 by sodahani          #+#    #+#             */
-/*   Updated: 2024/11/17 18:56:53 by sodahani         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:17:07 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putnbr_unsigned(unsigned int n, int *len)
+static void	ft_putnbr_unsigned(unsigned int n, int *len)
 {
 	if (n >= 10)
 		ft_putnbr_unsigned(n / 10, len);
 	ft_putchar((n % 10) + '0', len);
 }
 
-static void	handle_format(const char specifier, va_list args, int *len)
+static int	handle_format(const char specifier, va_list args, int *len)
 {
 	char	c;
 
@@ -42,6 +42,9 @@ static void	handle_format(const char specifier, va_list args, int *len)
 		ft_putnbr_unsigned(va_arg(args, unsigned int), len);
 	else if (specifier == '%')
 		ft_putchar('%', len);
+	else
+		return (-1);
+	return (0);
 }
 
 int	ft_printf(const char *format, ...)
@@ -49,6 +52,8 @@ int	ft_printf(const char *format, ...)
 	int		len;
 	va_list	args;
 
+	if ((write(1, 0, 0) == -1) || format == NULL || *(format + 1) == '\0')
+		return (-1);
 	len = 0;
 	va_start(args, format);
 	while (*format)
@@ -56,7 +61,8 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			handle_format(*format, args, &len);
+			if (handle_format(*format, args, &len) == -1)
+				return (-1);
 		}
 		else
 			ft_putchar(*format, &len);
